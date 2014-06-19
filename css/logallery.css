@@ -1,0 +1,10 @@
+.logallery img {
+  max-width: 100%;
+  height: auto; }
+.logallery .image {
+  text-align: center; }
+  .logallery .image img {
+    display: inline-block; }
+.logallery .thumbs li {
+  float: left;
+  margin: 0 5px 5px 0; }

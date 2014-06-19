@@ -1,52 +1,54 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta http-equiv="content-language" content="en" />
-	
-		<title>LoGallery Demo</title>	
+    	<meta charset="utf-8">
+		
+		<title>Logallery Demo</title>	
 
 		<link rel="stylesheet" type="text/css" media="screen, projection" href="css/reset.css" />
 		<link rel="stylesheet" type="text/css" media="screen, projection" href="css/logallery.css" />
 		<link rel="stylesheet" type="text/css" media="screen, projection" href="css/screen.css" />
-
-		<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-		<script type="text/javascript" src="js/jquery.logallery.js"></script>
-		
-		<script type="text/javascript">
-			$('document').ready(function() {
-				$('ul.thumbs').loGallery();				
-			});
-		</script>
 	</head>
 
 	<body>
-	
-		<div id="container">
-			<h1>Lo Gallery Demo</h1>
+		<div class="container">
+			<h1>Logallery Demo</h1>
 			
 			<h2>Simple Demo</h2>
 			
-			<div id="image"></div>
+			<div class="gallery">
+				<div class="image"></div>
 			
-			<div id="caption"></div>
+				<div class="caption"></div>
 			
-			<ul class="thumbs">
-				<li><a href="gallery/1.jpg" title="Image One"><img src="gallery/1-t.jpg" alt="Image One" /></a></li>
-				<li><a href="gallery/2.jpg" title="Image Two"><img src="gallery/2-t.jpg" alt="Image Two" /></a></li>
-				<li><a href="gallery/3.jpg" title="Image Three"><img src="gallery/3-t.jpg" alt="Image Three" /></a></li>
-				<li><a href="gallery/4.jpg" title="Image Four"><img src="gallery/4-t.jpg" alt="Image Four" /></a></li>
-				<li><a href="gallery/5.jpg" title="Image Five"><img src="gallery/5-t.jpg" alt="Image Five" /></a></li>
-				<li><a href="gallery/6.jpg" title="Image Six"><img src="gallery/6-t.jpg" alt="Image Six" /></a></li>
-				<li><a href="gallery/7.jpg" title="Image Seven"><img src="gallery/7-t.jpg" alt="Image Seven" /></a></li>
-				<li><a href="gallery/8.jpg" title="Image Eight"><img src="gallery/8-t.jpg" alt="Image Eight" /></a></li>
-				<li><a href="gallery/9.jpg" title="Image Nine"><img src="gallery/9-t.jpg" alt="Image Nine" /></a></li>
-			</ul>
-			
-			
-			<hr />
-			
+				<ul class="thumbs">
+					<li><a href="gallery/1.jpg" title="Image One"><img src="gallery/1-t.jpg" alt="Image One" /></a></li>
+					<li><a href="gallery/2.jpg" title="Image Two"><img src="gallery/2-t.jpg" alt="Image Two" /></a></li>
+					<li><a href="gallery/3.jpg" title="Image Three"><img src="gallery/3-t.jpg" alt="Image Three" /></a></li>
+					<li><a href="gallery/4.jpg" title="Image Four"><img src="gallery/4-t.jpg" alt="Image Four" /></a></li>
+					<li><a href="gallery/5.jpg" title="Image Five"><img src="gallery/5-t.jpg" alt="Image Five" /></a></li>
+					<li><a href="gallery/6.jpg" title="Image Six"><img src="gallery/6-t.jpg" alt="Image Six" /></a></li>
+					<li><a href="gallery/7.jpg" title="Image Seven"><img src="gallery/7-t.jpg" alt="Image Seven" /></a></li>
+					<li><a href="gallery/8.jpg" title="Image Eight"><img src="gallery/8-t.jpg" alt="Image Eight" /></a></li>
+					<li><a href="gallery/9.jpg" title="Image Nine"><img src="gallery/9-t.jpg" alt="Image Nine" /></a></li>
+				</ul>
+			</div>
 		</div>
 
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+
+		<script type="text/javascript" src="js/jquery.logallery.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.gallery').logallery();				
+			});
+		</script>
 	</body>
 </html>

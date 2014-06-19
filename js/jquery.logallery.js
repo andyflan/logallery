@@ -1,16 +1,16 @@
 /*
 *
-*	Project: 		LoGallery
+*	Project: 		Logallery
 *
-*	Version: 		1.0 (22th July 2009)
+*	Version: 		1.2 (19th June 2013)
 *
-*	Author: 		Rolled by Losource (losource.net)
+*	Author: 		Andrew Flannery (inheritweb.net)
 *
 *	Description: 	In-place gallery, nice and small
 *
 *	License: 		GNU General Public License
 *
-*	Copyright:		2009 Andrew Flannery
+*	Copyright:		2014 Andrew Flannery
 *
 *	This program is free software: you can redistribute it and/or modify
 *	it under the terms of the GNU General Public License as published by
@@ -28,86 +28,135 @@
 */
 
 (function($) {
-	$.fn.loGallery = function(options) {
-		var opts = $.extend({}, $.fn.loGallery.defaults, options);
+	Logallery = function(element, options) {
+		this.element = element;
 		
-		this.each(function(i, ul) {
-			var elImageContainer = $(opts.imageContainer).height(opts.imageContainerInitialHeight + 'px');
-			var elCaptionContainer = $(opts.captionContainer);
-			var w = $(elImageContainer).width();
-			var activeIndex;
-			
-			if (opts.useNextPreviousNavigation) {
-				elPrevious = $('<a href="#" class="nav previous active" rel="previous"></a>');
-				elNext = $('<a href="#" class="nav next active" rel="next"></a>');
-				$(elImageContainer).append(elPrevious).append(elNext).find('a.nav').click(function() {
-					if ($(this).hasClass('previous')) {
-						$(ul).children().eq(activeIndex-1).find('a').click();
-					}
+		this.options = options;
 
-					if ($(this).hasClass('next')) {
-						$(ul).children().eq(activeIndex+1).find('a').click();
-					}
-					
-					return false;
-				});	
+		this.init();
+
+		this.attach_events();
+
+		this.ready();
+	}
+
+	Logallery.prototype.elements = null;
+	Logallery.prototype.activeIndex = null;
+	Logallery.prototype.elements = {
+		container:  null,
+		image_container:  null,
+		thumbs_container:  null,
+		caption_container:  null,
+		previous:  null,
+		next:  null
+	}
+
+	Logallery.prototype.init = function() {
+		//setup some elements and metrics
+		this.elements = {
+			container: 			$(this.element),
+			image_container:  	$(this.element).find(this.options.imageContainer),
+			thumbs_container: 	$(this.element).find('ul'),
+			caption_container: 	$(this.element).find(this.options.captionContainer) || $(this.element).nextAll(this.options.captionContainer)
+		}, 
+		w = $(this.elements.image_container).width();
+
+		this.elements.container.addClass('logallery');
+		this.elements.image_container.height(this.options.imageContainerInitialHeight + 'px');
+
+		//add the nav if we're using it
+		if (this.options.useNextPreviousNavigation) {
+			this.elements['previous'] = $('<a href="#" class="nav previous" rel="previous"></a>');
+			this.elements['next'] = $('<a href="#" class="nav next" rel="next"></a>');
+
+			$(this.elements.image_container).append(this.elements.previous).append(this.elements.next);
+		}
+	}
+
+	Logallery.prototype.attach_events = function() {
+		var that = this;
+
+		//handle the nav links
+		$(this.elements.image_container).find('a.nav').on('click', function(element) {
+			if ($(this).hasClass('previous')) {
+				$(elements.thumbs_container).children().eq(activeIndex-1).find('a').click();
 			}
-			
-			$(ul).find('a').click(function() {
-				var img = new Image;
-				
-				$(ul).find('.active').removeClass('.active')
-				
-				$(this).addClass('active');
-				activeIndex = $(ul).children().index($(this).parent());
-				
-				$(elImageContainer).addClass('loading');
-				
-				$(img).hide(); 
-				
-				jQuery(img).load(function() {
-					$(elImageContainer).animate({ height: img.height });
-					$(elCaptionContainer).append('<span>' + $(img).attr('alt') + '</span>');
-					$(this).css('margin-left', (w - img.width) / 2 + 'px').appendTo(elImageContainer).removeClass('loading').fadeIn();
-				}).attr({
-					src: $(this).attr('href'),
-					alt: $(this).attr('title'),
-					title: $(this).attr('title')
-				});
 
-				if (opts.useNextPreviousNavigation) {
-					if (activeIndex == 0) {	
-						$(elPrevious).removeClass('active');
-					} else {
-						$(elPrevious).addClass('active');
-					}
-					
-					if (activeIndex == ($(ul).children().length - 1)) {
-						$(elNext).removeClass('active');
-					} else {
-						$(elNext).addClass('active');
-					}
+			if ($(this).hasClass('next')) {
+				$(elements.thumbs_container).children().eq(activeIndex+1).find('a').click();
+			}
+				
+			return false;
+		});	
+
+		$(this.elements.thumbs_container).find('a').on('click', function(element) {
+			var img = new Image;
+				
+			$(that.elements.thumbs_container).find('a.active').removeClass('active')
+				
+			$(this).addClass('active');
+			
+			that.activeIndex = $(that.elements.thumbs_container).children().index($(this).parent());
+				
+			$(that.elements.image_container).addClass('loading');
+				
+			$(img).hide(); 
+				
+			$(img).load(function() {
+				$(that.elements.image_container).animate({ height: img.height });
+				$(that.elements.caption_container).append('<span>' + $(img).attr('alt') + '</span>');
+				//$(this).css('margin-left', (w - img.width) / 2 + 'px').appendTo(elements.image_container).removeClass('loading').fadeIn();
+				$(this).appendTo(that.elements.image_container).removeClass('loading').fadeIn();
+			}).attr({
+				src: $(this).attr('href'),
+				alt: $(this).attr('title'),
+				title: $(this).attr('title')
+			});
+
+			if (that.options.useNextPreviousNavigation) {
+				if (that.activeIndex == 0) {	
+					$(that.elements.previous).removeClass('active');
+				} else {
+					$(that.elements.previous).addClass('active');
 				}
-								
-				$(elImageContainer).find('img').fadeOut(function() {
-					$(this).remove();
-				});
 				
-				$(elCaptionContainer).children().fadeOut(function() {
-					$(this).remove();
-				});
-				
-				return false;
+				if (that.activeIndex == ($(that.elements.thumbs_container).children().length - 1)) {
+					$(that.elements.next).removeClass('active');
+				} else {
+					$(that.elements.next).addClass('active');
+				}
+			}
+							
+			$(that.elements.image_container).find('img').fadeOut(function() {
+				$(this).remove();
 			});
 			
-			$(ul).find('li a:first').click();
+			$(that.elements.caption_container).children().hide().remove();
+			
+			return false;
+		});
+	}
+
+	Logallery.prototype.ready = function() {
+		$(this.elements.thumbs_container).find('li a:first').trigger('click');
+	}
+
+	//extend jquery
+	$.fn.logallery = function(options) {
+		//setup the options
+		var opts = $.extend({}, $.fn.logallery.defaults, options);
+		
+		//iterate over the matching elements
+		this.each(function(i, element) {
+			//make the object
+			new Logallery(element, opts);
 		});
 	};
 	 
-	$.fn.loGallery.defaults = {
-		imageContainer: '#image',
+	$.fn.logallery.defaults = {
+		imageContainer: '.image',
 		imageContainerInitialHeight: 400,
-		captionContainer: '#caption',
+		captionContainer: '.caption',
 		useNextPreviousNavigation: true
 	};
 	

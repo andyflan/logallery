@@ -1,2 +1,9 @@
+# ========================
+# Grunt
+# ========================
+
+validation-report.json
+validation-status.json
+node_modules
+.sass-cache
 .DS_Store
-*~

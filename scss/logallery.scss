@@ -1,0 +1,21 @@
+.logallery {
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	.image {
+		text-align: center;
+
+		img {
+			display: inline-block;
+		}
+	}
+
+	.thumbs {
+		li {
+			float: left;
+			margin: 0 5px 5px 0;
+		}
+	}
+}
