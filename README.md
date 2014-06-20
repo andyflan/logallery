@@ -7,6 +7,8 @@ A very simple jQuery gallery plugin that doesn't do very much, but it's very lig
 Do something like this:
 
 ```html
+<link rel="stylesheet" type="text/css" media="screen, projection" href="css/logallery.css" />
+
 <div class="gallery">
 	<div class="image"></div>
 	
