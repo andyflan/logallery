@@ -1,6 +1,6 @@
 {
   "name": "logallery",
-  "description": "Simple and old jQuery gallery plugin",
+  "description": "Simple and old jQuery gallery plugin - updated for responsive",
   "repository": "github.com:andyflan/logallery.git",
   "version": "1.2",
   "devDependencies": {

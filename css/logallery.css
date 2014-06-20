@@ -1,10 +1,68 @@
-.logallery img {
-  max-width: 100%;
-  height: auto; }
-.logallery .image {
-  text-align: center; }
-  .logallery .image img {
-    display: inline-block; }
-.logallery .thumbs li {
-  float: left;
-  margin: 0 5px 5px 0; }
+.logallery {
+  background-color: #232323; }
+  .logallery img {
+    max-width: 100%;
+    height: auto; }
+  .logallery .image {
+    position: relative;
+    z-index: 10;
+    -webkit-transition: height 0.3s ease-in-out;
+    -moz-transition: height 0.3s ease-in-out;
+    -ms-transition: height 0.3s ease-in-out;
+    -o-transition: height 0.3s ease-in-out;
+    transition: height 0.3s ease-in-out; }
+    .logallery .image img {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      display: block; }
+  .logallery .caption {
+    height: 20px;
+    margin: 5px 0;
+    color: white;
+    text-align: center;
+    line-height: 20px; }
+  .logallery .thumbs {
+    text-align: center; }
+    .logallery .thumbs li {
+      display: inline-block;
+      margin: 0 5px 5px 0; }
+      .logallery .thumbs li a img {
+        display: block;
+        border: 3px solid black;
+        opacity: 0.8; }
+      .logallery .thumbs li a.active img, .logallery .thumbs li a:hover img {
+        border-color: white;
+        opacity: 1; }
+  .logallery .nav {
+    position: absolute;
+    top: 50%;
+    z-index: 20;
+    width: 20px;
+    height: 20px;
+    margin-top: -15px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.1); }
+    .logallery .nav span {
+      display: block;
+      width: 0;
+      height: 0;
+      border: inset 10px; }
+    .logallery .nav.prev {
+      left: 0; }
+      .logallery .nav.prev span {
+        margin-left: -5px;
+        border-right-style: solid;
+        border-color: transparent;
+        border-right-color: white; }
+    .logallery .nav.next {
+      right: 0; }
+      .logallery .nav.next span {
+        margin-left: 5px;
+        border-left-style: solid;
+        border-color: transparent;
+        border-left-color: white; }
+    .logallery .nav:hover {
+      background-color: rgba(0, 0, 0, 0.3); }
+    .logallery .nav.disabled {
+      display: none; }
