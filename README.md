@@ -6,7 +6,7 @@ A very simple jQuery gallery plugin that doesn't do very much, but it's very lig
 
 Do something like this:
 
-'''html
+```html
 <div class="gallery">
 	<div class="image"></div>
 	
@@ -22,7 +22,7 @@ Do something like this:
 <script>
 	$('.gallery').logallery();
 </script>
-'''
+```
 
 ## License
 
